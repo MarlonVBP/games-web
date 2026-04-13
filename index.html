@@ -1,0 +1,671 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Falando Contabilês | Jogos e Materiais</title>
+    <style>
+      /* Variáveis de CSS com a paleta Verde da logo */
+      :root {
+        --primary-color: #00a859;
+        --primary-hover: #008545;
+        --bg-color: #f7fcf9;
+        --surface: #ffffff;
+        --text-dark: #0f172a;
+        --text-muted: #64748b;
+        --tag-bg: #e8f8f0;
+        --tag-text: #008545;
+        --radius: 12px;
+        --transition: all 0.3s ease;
+      }
+
+      /* Rolagem suave para os links do menu */
+      html {
+        scroll-behavior: smooth;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family:
+          "Inter",
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          Roboto,
+          sans-serif;
+      }
+
+      body {
+        background-color: var(--bg-color);
+        color: var(--text-dark);
+        line-height: 1.6;
+        background-image: radial-gradient(
+          rgba(0, 168, 89, 0.15) 1.5px,
+          transparent 1.5px
+        );
+        background-size: 24px 24px;
+      }
+
+      /* --- CABEÇALHO --- */
+      header {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(8px);
+        padding: 20px 5%;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+      }
+
+      .logo {
+        font-size: 24px;
+        font-weight: 800;
+        color: var(--primary-color);
+        text-decoration: none;
+      }
+
+      nav {
+        display: flex;
+        gap: 24px;
+      }
+
+      nav a {
+        text-decoration: none;
+        color: var(--text-muted);
+        font-weight: 500;
+        transition: var(--transition);
+      }
+
+      nav a:hover {
+        color: var(--primary-color);
+      }
+
+      /* --- HERO SECTION --- */
+      .hero {
+        position: relative;
+        text-align: center;
+        padding: 80px 20px;
+        background: linear-gradient(
+          135deg,
+          #008545 0%,
+          var(--primary-color) 100%
+        );
+        color: white;
+        scroll-margin-top: 70px;
+        overflow: hidden;
+        z-index: 1;
+      }
+
+      .hero::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-image:
+          linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+        background-size: 40px 40px;
+        z-index: -1;
+      }
+
+      .hero h1 {
+        font-size: 2.5rem;
+        margin-bottom: 16px;
+      }
+      .hero p {
+        font-size: 1.1rem;
+        max-width: 600px;
+        margin: 0 auto;
+        opacity: 0.9;
+      }
+
+      /* --- LETREIRO ANIMADO --- */
+      .marquee-container {
+        width: 100%;
+        background-color: var(--tag-bg);
+        color: var(--primary-hover);
+        padding: 12px 0;
+        overflow: hidden;
+        display: flex;
+        border-top: 1px solid rgba(0, 168, 89, 0.2);
+        border-bottom: 1px solid rgba(0, 168, 89, 0.2);
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+      }
+
+      .marquee-track {
+        display: flex;
+        white-space: nowrap;
+        animation: scroll-marquee 25s linear infinite;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-size: 0.85rem;
+      }
+
+      .marquee-item {
+        display: inline-flex;
+        align-items: center;
+        gap: 2rem;
+        padding-right: 2rem;
+      }
+
+      @keyframes scroll-marquee {
+        0% {
+          transform: translateX(0);
+        }
+        100% {
+          transform: translateX(-50%);
+        }
+      }
+
+      /* --- ESTRUTURA GERAL DE SEÇÕES --- */
+      .section-container {
+        padding: 80px 5%;
+        max-width: 1200px;
+        margin: 0 auto;
+        scroll-margin-top: 70px; /* Impede que o menu cubra o título */
+      }
+
+      .section-header {
+        text-align: center;
+        margin-bottom: 40px;
+      }
+
+      .section-header h2 {
+        font-size: 2.2rem;
+        color: var(--text-dark);
+        margin-bottom: 10px;
+      }
+
+      .section-header p {
+        color: var(--text-muted);
+        font-size: 1.1rem;
+      }
+
+      /* --- JOGOS (Filtros e Grid) --- */
+      .filters {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+        margin-bottom: 40px;
+      }
+
+      .filters button {
+        background: var(--surface);
+        border: 1px solid #e2e8f0;
+        padding: 8px 16px;
+        border-radius: 20px;
+        cursor: pointer;
+        font-weight: 500;
+        color: var(--text-muted);
+        transition: var(--transition);
+      }
+
+      .filters button:hover,
+      .filters button.active {
+        background: var(--primary-color);
+        color: white;
+        border-color: var(--primary-color);
+      }
+
+      .games-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 30px;
+      }
+
+      .card {
+        background: var(--surface);
+        border-radius: var(--radius);
+        overflow: hidden;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        transition: var(--transition);
+        display: flex;
+        flex-direction: column;
+        animation: fadeIn 0.4s ease forwards;
+        border: 1px solid rgba(0, 0, 0, 0.03);
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: scale(0.95);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+
+      .card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 15px 30px -5px rgba(0, 168, 89, 0.15);
+        border-color: rgba(0, 168, 89, 0.3);
+      }
+
+      .card-img {
+        height: 180px;
+        width: 100%;
+        object-fit: cover;
+      }
+      .card-content {
+        padding: 24px;
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+      }
+      .tag {
+        background: var(--tag-bg);
+        color: var(--tag-text);
+        font-size: 0.75rem;
+        font-weight: 700;
+        padding: 4px 10px;
+        border-radius: 12px;
+        align-self: flex-start;
+        text-transform: uppercase;
+        margin-bottom: 12px;
+      }
+      .card h3 {
+        font-size: 1.25rem;
+        margin-bottom: 8px;
+      }
+      .card p {
+        font-size: 0.9rem;
+        color: var(--text-muted);
+        margin-bottom: 24px;
+        flex-grow: 1;
+      }
+
+      .btn {
+        display: inline-block;
+        text-align: center;
+        background: var(--primary-color);
+        color: white;
+        text-decoration: none;
+        padding: 12px 24px;
+        border-radius: 8px;
+        font-weight: 600;
+        transition: var(--transition);
+        border: none;
+        cursor: pointer;
+      }
+      .btn:hover {
+        background: var(--primary-hover);
+      }
+
+      /* --- MATÉRIAS --- */
+      .materias-list {
+        background: var(--surface);
+        border-radius: var(--radius);
+        border: 1px solid #e2e8f0;
+        overflow: hidden;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
+      }
+
+      .materia-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 30px;
+        border-bottom: 1px solid #f1f5f9;
+        transition: var(--transition);
+      }
+
+      .materia-item:last-child {
+        border-bottom: none;
+      }
+      .materia-item:hover {
+        background: var(--tag-bg);
+      }
+
+      .materia-info h4 {
+        font-size: 1.1rem;
+        margin-bottom: 4px;
+        color: var(--text-dark);
+      }
+      .materia-info span {
+        font-size: 0.85rem;
+        color: var(--text-muted);
+        background: #f1f5f9;
+        padding: 3px 8px;
+        border-radius: 4px;
+      }
+
+      .btn-download {
+        color: var(--primary-color);
+        font-weight: 600;
+        text-decoration: none;
+        font-size: 0.95rem;
+      }
+      .btn-download:hover {
+        color: var(--primary-hover);
+        text-decoration: underline;
+      }
+
+      /* --- CONTATO --- */
+      .contato-wrapper {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+        background: var(--surface);
+        padding: 40px;
+        border-radius: var(--radius);
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
+        border: 1px solid #e2e8f0;
+      }
+
+      .contato-info h3 {
+        color: var(--primary-color);
+        margin-bottom: 20px;
+        font-size: 1.5rem;
+      }
+      .info-item {
+        margin-bottom: 15px;
+        color: var(--text-muted);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .form-group {
+        margin-bottom: 20px;
+      }
+      .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 500;
+        font-size: 0.9rem;
+      }
+      .form-group input,
+      .form-group textarea {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #e2e8f0;
+        border-radius: 8px;
+        outline: none;
+        font-family: inherit;
+        transition: var(--transition);
+      }
+      .form-group input:focus,
+      .form-group textarea:focus {
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 3px rgba(0, 168, 89, 0.15);
+      }
+
+      /* --- FOOTER --- */
+      footer {
+        text-align: center;
+        padding: 40px 20px;
+        background: var(--surface);
+        border-top: 1px solid #e2e8f0;
+        color: var(--text-muted);
+        margin-top: 40px;
+      }
+
+      /* --- RESPONSIVIDADE --- */
+      @media (max-width: 768px) {
+        header {
+          flex-direction: column;
+          gap: 15px;
+        }
+        .contato-wrapper {
+          grid-template-columns: 1fr;
+        }
+        .materia-item {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 15px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <a href="#inicio" class="logo">Falando Contabilês</a>
+      <nav>
+        <a href="#inicio">Início</a>
+        <a href="#jogos">Jogos Digitais</a>
+        <a href="#materias">Materiais</a>
+        <a href="#contato">Contato</a>
+      </nav>
+    </header>
+
+    <section id="inicio" class="hero">
+      <h1>Ensino para Gestão</h1>
+      <p>
+        Fixe seus conhecimentos de contabilidade de forma interativa, prática e
+        divertida com nossa coleção de jogos e materiais exclusivos.
+      </p>
+    </section>
+
+    <div class="marquee-container">
+      <div class="marquee-track">
+        <div class="marquee-item">
+          <span>🎮 Aprenda Contabilidade Jogando</span><span>•</span>
+          <span>📊 Pratique com Casos Reais</span><span>•</span>
+          <span>🧩 Metodologia Ativa de Ensino</span><span>•</span>
+          <span>💡 Teste seus Conhecimentos</span><span>•</span>
+        </div>
+        <div class="marquee-item">
+          <span>🎮 Aprenda Contabilidade Jogando</span><span>•</span>
+          <span>📊 Pratique com Casos Reais</span><span>•</span>
+          <span>🧩 Metodologia Ativa de Ensino</span><span>•</span>
+          <span>💡 Teste seus Conhecimentos</span><span>•</span>
+        </div>
+      </div>
+    </div>
+
+    <section id="jogos" class="section-container">
+      <div class="section-header">
+        <h2>Jogos Digitais</h2>
+        <p>Selecione uma categoria e comece a praticar.</p>
+      </div>
+
+      <div class="filters">
+        <button data-filter="todos" class="active">Todos</button>
+        <button data-filter="fundamentos">Fundamentos</button>
+        <button data-filter="ativo-passivo">Ativo/Passivo</button>
+        <button data-filter="custos">Custos</button>
+        <button data-filter="logica">Lógica</button>
+      </div>
+
+      <div class="games-grid" id="grid">
+        <article class="card" data-category="fundamentos">
+          <img
+            src="https://static.wixstatic.com/media/c982bf_b121719e04f74747b05e09afad58f0b9~mv2.jpg/v1/crop/x_38,y_0,w_886,h_809/fill/w_380,h_347,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/tela_jogo_edited.jpg"
+            alt="Razonetando"
+            class="card-img"
+          />
+          <div class="card-content">
+            <span class="tag">Fundamentos</span>
+            <h3>Razonetando</h3>
+            <p>
+              Pratique a lógica das partidas dobradas organizando os lançamentos
+              diretamente nos razonetes.
+            </p>
+            <a href="#" class="btn">Jogar Agora</a>
+          </div>
+        </article>
+
+        <article class="card" data-category="fundamentos">
+          <img
+            src="https://static.wixstatic.com/media/c982bf_6f7d5397104a4202aecf3638f7e63a7d~mv2.jpg/v1/crop/x_36,y_0,w_656,h_599/fill/w_380,h_347,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/imagem_edited.jpg"
+            alt="Contabilizatron"
+            class="card-img"
+          />
+          <div class="card-content">
+            <span class="tag">Fundamentos</span>
+            <h3>Contabilizatron</h3>
+            <p>
+              Teste seus reflexos contábeis em um jogo rápido de perguntas,
+              classificações e desafios práticos.
+            </p>
+            <a href="#" class="btn">Jogar Agora</a>
+          </div>
+        </article>
+
+        <article class="card" data-category="ativo-passivo">
+          <img
+            src="https://static.wixstatic.com/media/c982bf_bd1c754d2e1b4e85a251970fb2bb71d0~mv2.jpg/v1/crop/x_7,y_0,w_788,h_720/fill/w_380,h_347,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/USANDO%20O%20GENIALLY%20NO%20ENSINO%20CONT%C3%81BIL_edi.jpg"
+            alt="Escape Room"
+            class="card-img"
+          />
+          <div class="card-content">
+            <span class="tag">Ativo/Passivo</span>
+            <h3>Escape Room: Escritório</h3>
+            <p>
+              Encontre as pistas e descubra o total do Ativo para conseguir
+              escapar do escritório contábil.
+            </p>
+            <a href="#" class="btn">Jogar Agora</a>
+          </div>
+        </article>
+
+        <article class="card" data-category="logica">
+          <img
+            src="https://static.wixstatic.com/media/c982bf_8c22bf7fb6cf4a08950921f605523233~mv2.png/v1/crop/x_173,y_0,w_837,h_764/fill/w_380,h_347,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/Tetriz-contabil%20jogo.png"
+            alt="Tetriz Contábil"
+            class="card-img"
+          />
+          <div class="card-content">
+            <span class="tag">Lógica</span>
+            <h3>Tetriz Contábil</h3>
+            <p>
+              Encaixe as contas nos lugares corretos antes que o tempo acabe.
+              Uma nova forma de olhar para o balanço.
+            </p>
+            <a href="#" class="btn">Jogar Agora</a>
+          </div>
+        </article>
+
+        <article class="card" data-category="custos">
+          <img
+            src="https://static.wixstatic.com/media/c982bf_4fbe42ca63c14c5981149fe3f9703f85~mv2.png/v1/crop/x_14,y_0,w_819,h_748/fill/w_380,h_347,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/Doceria%20contabil.png"
+            alt="Morango do Amor"
+            class="card-img"
+          />
+          <div class="card-content">
+            <span class="tag">Custos</span>
+            <h3>Gastos: Morango do Amor</h3>
+            <p>
+              Aprenda contabilidade de custos gerenciando a produção e os gastos
+              de uma doceria de forma interativa.
+            </p>
+            <a href="#" class="btn">Jogar Agora</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="materias" class="section-container">
+      <div class="section-header">
+        <h2>Materiais de Apoio</h2>
+        <p>Baixe conteúdos extras para complementar seus estudos.</p>
+      </div>
+      <div class="materias-list">
+        <div class="materia-item">
+          <div class="materia-info">
+            <h4>Resumo: Natureza das Contas</h4>
+            <span>PDF • 1.2 MB</span>
+          </div>
+          <a href="#" class="btn-download">Baixar Arquivo ↓</a>
+        </div>
+        <div class="materia-item">
+          <div class="materia-info">
+            <h4>Planilha de DRE Estruturada</h4>
+            <span>Excel • 500 KB</span>
+          </div>
+          <a href="#" class="btn-download">Baixar Arquivo ↓</a>
+        </div>
+        <div class="materia-item">
+          <div class="materia-info">
+            <h4>Mapa Mental: Ativo e Passivo</h4>
+            <span>Imagem (PNG) • 2.5 MB</span>
+          </div>
+          <a href="#" class="btn-download">Baixar Arquivo ↓</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="contato" class="section-container">
+      <div class="section-header">
+        <h2>Fale Conosco</h2>
+        <p>Dúvidas sobre os jogos ou sugestões? Envie uma mensagem!</p>
+      </div>
+      <div class="contato-wrapper">
+        <div class="contato-info">
+          <h3>Informações de Contato</h3>
+          <p style="margin-bottom: 20px; color: var(--text-muted)">
+            Estamos sempre abertos a feedbacks para melhorar nossas ferramentas
+            educacionais.
+          </p>
+          <div class="info-item">📍 Tatuí, São Paulo</div>
+          <div class="info-item">📧 luciano@falandocontabiles.com.br</div>
+          <div class="info-item">📱 Redes Sociais: @falandocontabiles</div>
+        </div>
+        <form>
+          <div class="form-group">
+            <label for="nome">Nome Completo</label>
+            <input type="text" id="nome" placeholder="Digite seu nome" />
+          </div>
+          <div class="form-group">
+            <label for="email">E-mail</label>
+            <input type="email" id="email" placeholder="seu@email.com" />
+          </div>
+          <div class="form-group">
+            <label for="mensagem">Mensagem</label>
+            <textarea
+              id="mensagem"
+              rows="4"
+              placeholder="Como podemos ajudar?"
+            ></textarea>
+          </div>
+          <button type="submit" class="btn" style="width: 100%">
+            Enviar Mensagem
+          </button>
+        </form>
+      </div>
+    </section>
+
+    <footer>
+      <p>&copy; 2026 Falando Contabilês. Todos os direitos reservados.</p>
+    </footer>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const filterButtons = document.querySelectorAll(".filters button");
+        const cards = document.querySelectorAll(".card");
+
+        filterButtons.forEach((button) => {
+          button.addEventListener("click", () => {
+            filterButtons.forEach((btn) => btn.classList.remove("active"));
+            button.classList.add("active");
+
+            const filterValue = button.getAttribute("data-filter");
+
+            cards.forEach((card) => {
+              const cardCategory = card.getAttribute("data-category");
+
+              if (filterValue === "todos" || filterValue === cardCategory) {
+                card.style.display = "flex";
+                card.style.animation = "none";
+                card.offsetHeight;
+                card.style.animation = null;
+              } else {
+                card.style.display = "none";
+              }
+            });
+          });
+        });
+      });
+    </script>
+  </body>
+</html>
